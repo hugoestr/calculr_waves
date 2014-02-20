@@ -1,0 +1,96 @@
+﻿<Window x:Class="calculator_wht.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:controls="clr-namespace:WaveCalculator.Controls"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Basic Engineering Calculator for Wave Forces" Height="500" Width="600">
+    <Grid Margin="0,0,0,2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="397*"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="133*"/>
+            <ColumnDefinition Width="82*"/>
+        </Grid.ColumnDefinitions>
+        <controls:TextBoxNum x:Name="box_L" Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,75,40,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" TextChanged="box_L_TextChanged" Grid.Row="1" ToolTip="Enter the wavelength in metres."/>
+        <controls:TextBoxNum x:Name="box_H" Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,105,40,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Grid.Row="1" ToolTip="Enter the waveheight in metres."/>
+        <controls:TextBoxNum x:Name="box_h" Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,135,40,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Grid.Row="1" ToolTip="Enter the depth from the normal sea surface z=0 to depth z=-h."/>
+        <Button x:Name="Calculate" Content="Calculate" Click="Calculate_Click" Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,45,40,0" VerticalAlignment="Top" Width="70" Grid.Row="1" IsDefault="True"/>
+        <Label Content="Wavelength" HorizontalAlignment="Left" Margin="23,75,0,0" VerticalAlignment="Top" Height="25" Width="77" FontSize="11" Grid.Row="1"/>
+        <Label Content="Waveheight" HorizontalAlignment="Left" Margin="23,105,0,0" VerticalAlignment="Top" Height="25" Width="77" FontSize="11" Grid.Row="1"/>
+        <Label Content="Water depth" HorizontalAlignment="Left" Margin="23,135,0,0" VerticalAlignment="Top" Height="25" Width="77" FontSize="11" Grid.Row="1"/>
+        <Label Content="Variables" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="100" FontWeight="Bold" FontFamily="Tahoma" FontSize="14"/>
+        <Label Content="Results" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="100" FontWeight="Bold" FontFamily="Tahoma" Grid.Column="2" Margin="10,0,0,0" FontSize="14"/>
+        <Menu HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="592" Margin="0,10,0,0" Grid.ColumnSpan="5">
+            <MenuItem Header="_File" Height="25" >
+                <MenuItem Header="_Save As..." />
+                <Separator/>
+                <MenuItem Header="_Exit" Click="CloseButton_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Edit" Height="25" >
+                <MenuItem Header="_Cut" Command="Cut">
+                    <MenuItem.Icon>
+                        <Image Source="Images/cut.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Copy" Command="Copy">
+                    <MenuItem.Icon>
+                        <Image Source="Images/copy.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Paste" Command="Paste">
+                    <MenuItem.Icon>
+                        <Image Source="Images/paste.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Calculator" Height="25"  >
+                <MenuItem Header="Wave Calculator" />
+                <MenuItem Header="Hudson Forces" Click="MenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <Label Content="Your waves are " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="130" Grid.Column="2" Margin="10,45,0,0" FontSize="11"/>
+        <Label x:Name="ResultDispR" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="3,134,0,0" FontSize="11"/>
+        <Label x:Name="ResultWavek" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="3,164,0,0" FontSize="11"/>
+        <Label Content="Wavenumber k: " Grid.Column="2" HorizontalAlignment="Left" Margin="31,164,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label Content="Dispersion relation " Grid.Column="2" HorizontalAlignment="Left" Margin="31,134,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label x:Name="ResultWaveT" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="3,75,0,0" FontSize="11"/>
+        <Label x:Name="ResultWavef" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="3,105,0,0" FontSize="11"/>
+        <Label Content="Wave period T: " Grid.Column="2" HorizontalAlignment="Left" Margin="31,75,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label Content="Wave frequency f: " Grid.Column="2" HorizontalAlignment="Left" Margin="31,104,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label x:Name="Result" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="73" Grid.Column="3" Margin="0,45,0,0" FontSize="11"/>
+        <Label Content="s" Grid.Column="3" HorizontalAlignment="Left" Margin="73,75,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="Hz" Grid.Column="3" HorizontalAlignment="Left" Margin="73,105,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="rad/s" Grid.Column="3" HorizontalAlignment="Left" Margin="73,134,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="rad/m" Grid.Column="3" HorizontalAlignment="Left" Margin="73,164,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="waves" Grid.Column="3" HorizontalAlignment="Left" Margin="73,45,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40" RenderTransformOrigin="-0.043,0.533"/>
+        <Label Content="Basic Wave Properties" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="130" Grid.Column="2" Margin="10,20,0,0" FontSize="11" FontWeight="Bold"/>
+        <Label Content="Derived Wave Quantities" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="138" Grid.Column="2" Margin="10,189,0,0" FontSize="11" FontWeight="Bold"/>
+        <Label Content="Group velocity cg: " Grid.Column="2" HorizontalAlignment="Left" Margin="31,308,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label Content="Celerity c:" Grid.Column="2" HorizontalAlignment="Left" Margin="31,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label Content="Particle velocity u:" Grid.Column="2" HorizontalAlignment="Left" Margin="31,219,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label Content="Significant wave height Hs:" Grid.Column="2" HorizontalAlignment="Left" Margin="0,248,0,0" Grid.Row="1" VerticalAlignment="Top" Width="148" Height="25" FontSize="11"/>
+        <Label Content="Power P:" Grid.Column="2" HorizontalAlignment="Left" Margin="31,368,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label Content="Energy E:" Grid.Column="2" HorizontalAlignment="Left" Margin="31,338,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117" Height="25" FontSize="11"/>
+        <Label Content="m" Grid.Column="3" HorizontalAlignment="Left" Margin="73,248,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="m/s" Grid.Column="3" HorizontalAlignment="Left" Margin="73,277,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="m/s" Grid.Column="3" HorizontalAlignment="Left" Margin="73,307,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="J" Grid.Column="3" HorizontalAlignment="Left" Margin="73,338,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label Content="m/s" Grid.Column="3" HorizontalAlignment="Left" Margin="73,219,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40" RenderTransformOrigin="-0.043,0.533"/>
+        <Label Content="W" Grid.Column="3" HorizontalAlignment="Left" Margin="73,368,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="11" Height="25" Width="40"/>
+        <Label x:Name="Resultc" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="0,277,0,0" FontSize="11"/>
+        <Label x:Name="Resultcg" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="0,307,0,0" FontSize="11"/>
+        <Label x:Name="Resultu" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="0,218,0,0" FontSize="11"/>
+        <Label x:Name="ResultHs" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="0,248,0,0" FontSize="11"/>
+        <Label x:Name="ResultE" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="3,338,0,0" FontSize="11"/>
+        <Label x:Name="ResultP" Content="" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="25" Width="70" FontFamily="Tahoma" Grid.Column="3" Margin="3,368,0,0" FontSize="11"/>
+        <Label Content="m" HorizontalAlignment="Left" Margin="85,76,0,0" VerticalAlignment="Top" Height="25" Width="25" FontSize="10" Grid.Row="1" Grid.Column="1"/>
+        <Label Content="m" HorizontalAlignment="Left" Margin="85,105,0,0" VerticalAlignment="Top" Height="25" Width="25" FontSize="10" Grid.Row="1" Grid.Column="1"/>
+        <Label Content="m" HorizontalAlignment="Left" Margin="85,135,0,0" VerticalAlignment="Top" Height="25" Width="25" FontSize="10" Grid.Row="1" Grid.Column="1"/>
+    </Grid>
+</Window>
