@@ -11,9 +11,9 @@ namespace WaveCalculator.Lib
 {
     class HudsonCalculator
     {
-        public WaveState Calculate(double L, double h, double alpha, double KD, double l)
+        public HudsonState Calculate(double L, double h, double alpha, double KD, double l)
         {
-            var result = new WaveState();
+            var result = new HudsonState();
             double beta, HudsonForce, RhoRock, RhoWater, NS, Const, gammaR, u, g, H, WR, SR;
 
             RhoWater = 1000;
