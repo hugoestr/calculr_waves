@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-using ILMerging;
+//using ILMerging;
 using WaveCalculator.Lib;
 using WaveCalculator.Controls;
 

@@ -35,6 +35,7 @@ namespace WaveCalculator.Lib
 
             result.WR = WR;
 
+            return result;
         }
     }
 }
