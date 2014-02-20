@@ -32,7 +32,7 @@ namespace WaveCalculator.Lib
         public double NS { get; set; }
         public double alpha { get; set; }
         public double l { get; set; }
-        public double C { get; set; }
+        public double Const { get; set; }
         public double gammaR { get; set; }
         public double WR { get; set; }
 
